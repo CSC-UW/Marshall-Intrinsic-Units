@@ -1,0 +1,4 @@
+import marshall2024
+
+marshall2024.run_coarsegrain_micro_example()
+marshall2024.summarize_coarsegrain_micro_example()

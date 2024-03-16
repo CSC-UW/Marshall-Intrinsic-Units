@@ -1,0 +1,4 @@
+import marshall2024
+
+marshall2024.run_something_from_nothing_micro_example()
+marshall2024.summarize_something_from_nothing_micro_example()

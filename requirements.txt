@@ -1,0 +1,19 @@
+# PyPhi
+pyphi
+numpy
+tqdm
+
+# Standard PyPhi visualization requirements
+pandas
+seaborn
+
+# Missing PyPhi visualization requirements
+kaleido
+
+# Missing PyPhi base requreiments
+async_timeout
+
+# Notebook requirements
+ipykernel
+ipywidgets
+nbconvert

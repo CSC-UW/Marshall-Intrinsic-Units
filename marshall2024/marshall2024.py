@@ -1,9 +1,11 @@
 import pathlib
 import pickle
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pyphi
 import pyphi.utils
+import pyphi.visualize
 from tqdm.auto import tqdm
 
 BBX_MACRO_SAVEDIR = "results/bbx_macro"
@@ -379,3 +381,42 @@ def get_something_from_something_micro_example():
     network = get_dancing_couples_network(w_vertical=0.25)
     state = (0, 0, 0, 0)
     return network, state
+
+
+#### Plotting functions #####
+
+
+def plot_sbs_tpm(network, use_node_labels=True, height=None):
+    def _italicize(text):
+        return "$\it{" + "".join(text) + "}$"
+
+    sbs = pyphi.convert.state_by_node2state_by_state(network.tpm)
+
+    states_labels = list(pyphi.utils.all_states(network.size))
+    if use_node_labels:
+        state_labels = [
+            pyphi.visualize.phi_structure.text.Labeler(
+                state, network.node_labels, postprocessor=_italicize
+            ).nodes(network.node_indices)
+            for state in states_labels
+        ]
+
+    figsize = None if height is None else (height, height)
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.pcolormesh(sbs, edgecolors="k", linewidth=0.5, cmap="Greys", vmin=0, vmax=1)
+    ax.tick_params(
+        top=False,
+        labeltop=use_node_labels,
+        bottom=False,
+        labelbottom=False,
+        left=False,
+        labelleft=use_node_labels,
+    )
+    if use_node_labels:
+        ax.set_xticks(
+            np.arange(len(state_labels)) + 0.5, labels=state_labels, rotation=90
+        )
+        ax.set_yticks(np.arange(len(state_labels)) + 0.5, labels=state_labels)
+    ax.set_aspect("equal")
+    ax.invert_yaxis()
+    return fig, ax

@@ -7,8 +7,8 @@ authors:
 - family-names: "Marshall"
   given-names: "William"
   orcid: "https://orcid.org/0000-0002-4779-6734"
-title: "Marshall_et_al_2024"
+title: "Marshall-Intrinsic-Units"
 version: 0.1.0
-doi: 10.5281/zenodo.11211436
-date-released: 2024-05-17
-url: "https://github.com/CSC-UW/Marshall_et_al_2024"
+doi: 10.5281/zenodo.11211436 # TODO: Update
+date-released: 2025-08-26
+url: "https://github.com/CSC-UW/Marshall-Intrinsic-Units"

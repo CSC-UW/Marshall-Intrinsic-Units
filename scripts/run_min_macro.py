@@ -1,0 +1,4 @@
+import marshall_intrinsic_units
+
+marshall_intrinsic_units.run_minimal_macro_example()
+marshall_intrinsic_units.summarize_minimal_macro_example()

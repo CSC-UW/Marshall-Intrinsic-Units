@@ -12,6 +12,8 @@ _BBX_MACRO_SAVEDIR = "results/bbx_macro"  # "Blackbox macro"
 _BBX_MICRO_SAVEDIR = "results/bbx_micro"  # "Blackbox micro"
 _CG_MICRO_SAVEDIR = "results/cg_micro"  # "Coarsegrain micro"
 _CG_MACRO_SAVEDIR = "results/cg_macro"  # "Coarsegrain macro"
+_MIN_MICRO_SAVEDIR = "results/min_micro"  # "Minimal micro"
+_MIN_MACRO_SAVEDIR = "results/min_macro"  # "Minimal macro"
 _SFN_MICRO_SAVEDIR = "results/sfn_micro"  # "Something from nothing"
 _SFNN_MICRO_SAVEDIR = "results/sfnn_micro"  # "Something from nearly nothing"
 _SFS_MICRO_SAVEDIR = "results/sfs_micro"  # "Something from something"
@@ -135,6 +137,26 @@ def run_coarsegrain_macro_example(savedir=_CG_MACRO_SAVEDIR, **kwargs):
 
 def summarize_coarsegrain_macro_example(savedir=_CG_MACRO_SAVEDIR):
     network, _ = get_coarsegrain_macro_example()
+    summarize_example(network, savedir)
+
+
+def run_minimal_micro_example(savedir=_MIN_MICRO_SAVEDIR, **kwargs):
+    network, network_state = get_minimal_micro_example()
+    run_example(network, network_state, savedir=savedir, **kwargs)
+
+
+def summarize_minimal_micro_example(savedir=_MIN_MICRO_SAVEDIR):
+    network, _ = get_minimal_micro_example()
+    summarize_example(network, savedir)
+
+
+def run_minimal_macro_example(savedir=_MIN_MACRO_SAVEDIR, **kwargs):
+    network, network_state = get_minimal_macro_example()
+    run_example(network, network_state, savedir=savedir, **kwargs)
+
+
+def summarize_minimal_macro_example(savedir=_MIN_MACRO_SAVEDIR):
+    network, _ = get_minimal_macro_example()
     summarize_example(network, savedir)
 
 
@@ -321,6 +343,30 @@ def get_coarsegrain_macro_example():
     node_labels = ("α", "β")
     network = pyphi.Network(tpm, node_labels=node_labels)
     state = (0, 0)
+    return network, state
+
+
+def get_minimal_micro_example():
+    tpm = np.array(
+        [
+            [0.05, 0.05],
+            [0.05, 0.06],
+            [0.06, 0.05],
+            [0.95, 0.95],
+        ]
+    )
+
+    node_labels = ("A", "B")
+    network = pyphi.Network(tpm, node_labels=node_labels)
+    state = (0, 0)
+    return network, state
+
+
+def get_minimal_macro_example():
+    tpm = np.array([[0.05 * 0.05 + 2 * 0.01 * 0.05 / 3], [(1 - 0.05) * (1 - 0.05)]])
+    node_labels = ("α",)
+    network = pyphi.Network(tpm, node_labels=node_labels)
+    state = (0,)
     return network, state
 
 

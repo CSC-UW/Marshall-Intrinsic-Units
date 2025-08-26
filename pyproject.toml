@@ -8,14 +8,9 @@ description = "Code for `Intrinsic Units: Identifying a system's causal grain`."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "async-timeout>=5.0.1", # Missing PyPhi base requirement
-    "kaleido>=1.0.0", # Missing PyPhi visualization requirement
     "matplotlib", 
     "numpy",
-    "pandas>=2.3.2", # Missing PyPhi visualization requirement
     "pyphi[visualize]",
-    "seaborn>=0.13.2", # Missing PyPhi visualization requirement
-    "setuptools>=80.9.0", # Missing pyemd requirement
     "tqdm",
 ]
 
@@ -29,4 +24,4 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.uv.sources]
-pyphi = { git = "https://github.com/wmayner/pyphi", rev = "83e887" } # TODO: Update!
+pyphi = { git = "https://github.com/wmayner/pyphi", rev = "941c65a" } # TODO: Update!

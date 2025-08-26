@@ -32,16 +32,6 @@ def get_subsystem_string(network, subset):
     return "".join(sorted(np.array(network.node_labels)[list(subset)].tolist()))
 
 
-def get_subystem_sia(network, network_state, subsystem_indices, **kwargs):
-    cause_subsystem = pyphi.Subsystem(
-        network, network_state, subsystem_indices, backward_tpm=True, **kwargs
-    )
-    effect_subsystem = pyphi.Subsystem(
-        network, network_state, subsystem_indices, backward_tpm=False, **kwargs
-    )
-    return pyphi.backwards.sia(cause_subsystem, effect_subsystem, **kwargs)
-
-
 def run_example(
     network,
     network_state,
@@ -73,7 +63,8 @@ def run_example(
             print(f"Doing {subsystem_string}...")
 
         # Do actual work
-        sias[subset] = get_subystem_sia(network, network_state, subset)
+        subsystem = pyphi.Subsystem(network, network_state, subset)
+        sias[subset] = subsystem.sia()
 
         # Print output and save
         if verbose == 1:

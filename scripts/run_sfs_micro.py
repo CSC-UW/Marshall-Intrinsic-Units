@@ -1,4 +1,4 @@
-import marshall2024
+import marshall_intrinsic_units
 
-marshall2024.run_something_from_something_micro_example()
-marshall2024.summarize_something_from_something_micro_example()
+marshall_intrinsic_units.run_something_from_something_micro_example()
+marshall_intrinsic_units.summarize_something_from_something_micro_example()

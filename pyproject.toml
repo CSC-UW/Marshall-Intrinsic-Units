@@ -1,0 +1,27 @@
+[project]
+name = "marshall_intrinsic_units"
+version = "0.1.0"
+authors = [
+  { name="Graham Findlay", email="gfindlay@wisc.edu" }
+]
+description = "Code for `Intrinsic Units: Identifying a system's causal grain`."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "matplotlib",
+    "numpy",
+    "pyphi[visualize]",
+    "tqdm",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel,
+    "ruff",
+]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv.sources]
+pyphi = { git = "https://github.com/wmayner/pyphi", branch = "feature/iit-4.0" }

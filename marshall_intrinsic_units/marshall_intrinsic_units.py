@@ -8,13 +8,13 @@ import pyphi.utils
 import pyphi.visualize
 from tqdm.auto import tqdm
 
-BBX_MACRO_SAVEDIR = "results/bbx_macro"
-BBX_MICRO_SAVEDIR = "results/bbx_micro"
-CG_MICRO_SAVEDIR = "results/cg_micro"
-CG_MACRO_SAVEDIR = "results/cg_macro"
-SFN_MICRO_SAVEDIR = "results/sfn_micro"
-SFNN_MICRO_SAVEDIR = "results/sfnn_micro"
-SFS_MICRO_SAVEDIR = "results/sfs_micro"
+_BBX_MACRO_SAVEDIR = "results/bbx_macro"  # "Blackbox macro"
+_BBX_MICRO_SAVEDIR = "results/bbx_micro"  # "Blackbox micro"
+_CG_MICRO_SAVEDIR = "results/cg_micro"  # "Coarsegrain micro"
+_CG_MACRO_SAVEDIR = "results/cg_macro"  # "Coarsegrain macro"
+_SFN_MICRO_SAVEDIR = "results/sfn_micro"  # "Something from nothing"
+_SFNN_MICRO_SAVEDIR = "results/sfnn_micro"  # "Something from nearly nothing"
+_SFS_MICRO_SAVEDIR = "results/sfs_micro"  # "Something from something"
 
 
 def get_subsets_by_size(network):
@@ -86,7 +86,7 @@ def run_example(
 def summarize_example(network, savedir):
     savedir = pathlib.Path(savedir)
     subsets = get_subsets_by_size(network)
-    with open(savedir / f"summary.txt", "w") as f:
+    with open(savedir / "summary.txt", "w") as f:
         for subsystem_size in range(1, len(network.node_indices) + 1):
             f.write(f"====={subsystem_size}-node subsystems=====\n")
             for subset in subsets[subsystem_size]:
@@ -98,74 +98,74 @@ def summarize_example(network, savedir):
                     f.write(f"φ_s({subsystem_string}) = {sia.phi}\n")
 
 
-def run_blackbox_micro_example(savedir=BBX_MICRO_SAVEDIR, **kwargs):
+def run_blackbox_micro_example(savedir=_BBX_MICRO_SAVEDIR, **kwargs):
     network, network_state = get_blackbox_micro_example()
     run_example(network, network_state, savedir=savedir, **kwargs)
 
 
-def summarize_blackbox_micro_example(savedir=BBX_MICRO_SAVEDIR):
+def summarize_blackbox_micro_example(savedir=_BBX_MICRO_SAVEDIR):
     network, _ = get_blackbox_micro_example()
     summarize_example(network, savedir)
 
 
-def run_blackbox_macro_example(savedir=BBX_MACRO_SAVEDIR, **kwargs):
+def run_blackbox_macro_example(savedir=_BBX_MACRO_SAVEDIR, **kwargs):
     network, network_state = get_blackbox_macro_example()
     run_example(network, network_state, savedir=savedir, **kwargs)
 
 
-def summarize_blackbox_macro_example(savedir=BBX_MACRO_SAVEDIR):
+def summarize_blackbox_macro_example(savedir=_BBX_MACRO_SAVEDIR):
     network, _ = get_blackbox_macro_example()
     summarize_example(network, savedir)
 
 
-def run_coarsegrain_micro_example(savedir=CG_MICRO_SAVEDIR, **kwargs):
+def run_coarsegrain_micro_example(savedir=_CG_MICRO_SAVEDIR, **kwargs):
     network, network_state = get_coarsegrain_micro_example()
     run_example(network, network_state, savedir=savedir, **kwargs)
 
 
-def summarize_coarsegrain_micro_example(savedir=CG_MICRO_SAVEDIR):
+def summarize_coarsegrain_micro_example(savedir=_CG_MICRO_SAVEDIR):
     network, _ = get_coarsegrain_micro_example()
     summarize_example(network, savedir)
 
 
-def run_coarsegrain_macro_example(savedir=CG_MACRO_SAVEDIR, **kwargs):
+def run_coarsegrain_macro_example(savedir=_CG_MACRO_SAVEDIR, **kwargs):
     network, network_state = get_coarsegrain_macro_example()
     run_example(network, network_state, savedir=savedir, **kwargs)
 
 
-def summarize_coarsegrain_macro_example(savedir=CG_MACRO_SAVEDIR):
+def summarize_coarsegrain_macro_example(savedir=_CG_MACRO_SAVEDIR):
     network, _ = get_coarsegrain_macro_example()
     summarize_example(network, savedir)
 
 
-def run_something_from_nothing_micro_example(savedir=SFN_MICRO_SAVEDIR, **kwargs):
+def run_something_from_nothing_micro_example(savedir=_SFN_MICRO_SAVEDIR, **kwargs):
     network, network_state = get_something_from_nothing_micro_example()
     run_example(network, network_state, savedir=savedir, **kwargs)
 
 
-def summarize_something_from_nothing_micro_example(savedir=SFN_MICRO_SAVEDIR):
+def summarize_something_from_nothing_micro_example(savedir=_SFN_MICRO_SAVEDIR):
     network, _ = get_something_from_nothing_micro_example()
     summarize_example(network, savedir)
 
 
 def run_something_from_nearly_nothing_micro_example(
-    savedir=SFNN_MICRO_SAVEDIR, **kwargs
+    savedir=_SFNN_MICRO_SAVEDIR, **kwargs
 ):
     network, network_state = get_something_from_nearly_nothing_micro_example()
     run_example(network, network_state, savedir=savedir, **kwargs)
 
 
-def summarize_something_from_nearly_nothing_micro_example(savedir=SFNN_MICRO_SAVEDIR):
+def summarize_something_from_nearly_nothing_micro_example(savedir=_SFNN_MICRO_SAVEDIR):
     network, _ = get_something_from_nearly_nothing_micro_example()
     summarize_example(network, savedir)
 
 
-def run_something_from_something_micro_example(savedir=SFS_MICRO_SAVEDIR, **kwargs):
+def run_something_from_something_micro_example(savedir=_SFS_MICRO_SAVEDIR, **kwargs):
     network, network_state = get_something_from_something_micro_example()
     run_example(network, network_state, savedir=savedir, **kwargs)
 
 
-def summarize_something_from_something_micro_example(savedir=SFS_MICRO_SAVEDIR):
+def summarize_something_from_something_micro_example(savedir=_SFS_MICRO_SAVEDIR):
     network, _ = get_something_from_something_micro_example()
     summarize_example(network, savedir)
 
@@ -324,7 +324,7 @@ def get_coarsegrain_macro_example():
     return network, state
 
 
-def dancing_couple_node(
+def get_dancing_couple_node(
     current_state: np.ndarray,
     self_index: int,
     horizontal_neighbor: int,
@@ -355,7 +355,7 @@ def get_dancing_couples_network(w_vertical: float) -> np.ndarray:
     tpm = np.zeros_like(current_states, dtype=float)
     for current_state, p in zip(current_states, tpm):
         for i in connectivity:
-            p[i] = dancing_couple_node(
+            p[i] = get_dancing_couple_node(
                 current_state,
                 i,
                 connectivity[i]["horizontal_neighbor"],

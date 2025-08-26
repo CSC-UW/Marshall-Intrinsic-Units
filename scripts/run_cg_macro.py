@@ -1,4 +1,4 @@
-import marshall2024
+import marshall_intrinsic_units
 
-marshall2024.run_coarsegrain_macro_example()
-marshall2024.summarize_coarsegrain_macro_example()
+marshall_intrinsic_units.run_coarsegrain_macro_example()
+marshall_intrinsic_units.summarize_coarsegrain_macro_example()

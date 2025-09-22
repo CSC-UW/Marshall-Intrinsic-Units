@@ -8,6 +8,7 @@ import pyphi.utils
 import pyphi.visualize
 from tqdm.auto import tqdm
 
+_BU_MICRO_SAVEDIR = "results/bu_micro"  # "Binary units micro"
 _BBX_MACRO_SAVEDIR = "results/bbx_macro"  # "Blackbox macro"
 _BBX_MICRO_SAVEDIR = "results/bbx_micro"  # "Blackbox micro"
 _CG_MICRO_SAVEDIR = "results/cg_micro"  # "Coarsegrain micro"
@@ -89,6 +90,16 @@ def summarize_example(network, savedir):
                     with open(subsystem_file, "rb") as pf:
                         sia = pickle.load(pf)
                     f.write(f"φ_s({subsystem_string}) = {sia.phi}\n")
+
+
+def run_binary_units_micro_example(savedir=_BU_MICRO_SAVEDIR, **kwargs):
+    network, network_state = get_binary_units_micro_example()
+    run_example(network, network_state, savedir=savedir, **kwargs)
+
+
+def summarize_binary_units_micro_example(savedir=_BU_MICRO_SAVEDIR):
+    network, _ = get_binary_units_micro_example()
+    summarize_example(network, savedir)
 
 
 def run_blackbox_micro_example(savedir=_BBX_MICRO_SAVEDIR, **kwargs):
@@ -181,6 +192,49 @@ def run_something_from_something_micro_example(savedir=_SFS_MICRO_SAVEDIR, **kwa
 def summarize_something_from_something_micro_example(savedir=_SFS_MICRO_SAVEDIR):
     network, _ = get_something_from_something_micro_example()
     summarize_example(network, savedir)
+
+
+def _get_iit4_fig6d_micro_tpm():
+    node_labels = ("A", "B", "C", "D", "E", "F")
+    network_size = len(node_labels)
+    current_states = np.array(list(pyphi.utils.all_states(network_size)))
+    tpm = np.zeros_like(current_states, dtype=float)
+
+    k = 4
+    for current_state, p in zip(current_states, tpm):
+        # Convert 0s to -1s for sigmoidal activation function
+        current_state = np.where(current_state == 0, -1, current_state)
+        total_input = np.sum(current_state)
+        prob = 1.0 / (1.0 + np.exp(-k * total_input))
+        p[:] = prob
+
+    return tpm, current_states, node_labels
+
+
+def get_iit4_fig6d():
+    tpm, _, node_labels = _get_iit4_fig6d_micro_tpm()
+    network = pyphi.Network(tpm, node_labels=node_labels)
+    state = (1, 0, 0, 0, 0, 0)
+    return network, state
+
+
+def get_binary_units_micro_example():
+    tpm = np.array(
+        [
+            [1, 1, 1],
+            [0, 1, 0],
+            [0, 0, 0],
+            [1, 1, 0],
+            [0, 0, 1],
+            [0, 1, 1],
+            [1, 0, 1],
+            [1, 0, 0],
+        ]
+    )
+    node_labels = ("A", "B", "C")
+    network = pyphi.Network(tpm, node_labels=node_labels)
+    state = (0, 0, 0)
+    return network, state
 
 
 def _get_blackbox_example_micro_tpm():

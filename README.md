@@ -1,4 +1,4 @@
-Code for Marshall et al. 2025, _Intrinsic Units: Identifying a system’s causal grain_. 
+Code for Marshall et al., _Intrinsic Units: Identifying a system’s causal grain_. 
 
 Installation:
 ```
